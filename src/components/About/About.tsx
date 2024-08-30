@@ -1,5 +1,5 @@
 import { Container } from "./styles";
-import VinayakSingh from "../../assets/VinayakSingh.png";
+import HassanAli from "../../assets/HassanAliProfilePicture.png";
 import wordpress from "../../assets/wordpress.svg";
 import shopify from "../../assets/shopify.svg";
 import htmlIcon from "../../assets/html-icon.svg";
@@ -21,39 +21,34 @@ export function About() {
         </ScrollAnimation>
         <ScrollAnimation animateIn="fadeInLeft" delay={0.1 * 1000}>
           <p>
-            Hi there! I'm Vinayak, a website developer with a passion for creating custom online experiences for my clients. With a skill set including HTML, CSS, JavaScript, and React, I have the tools to bring any website vision to life.
+            Hello, this is Hassan Ali, a Full Stack Engineer with quite strong JavaScript fundamentals and experience in both the back and frontend. I am passionate about developing scalable, performant, and intuitive applications using modern technologies such as React and Node.js. My passion lies in creating customized solutions for the needs of businesses everywhere, from dynamic web applications to robust SaaS products.
           </p>
         </ScrollAnimation>
         <ScrollAnimation animateIn="fadeInLeft" delay={0.2 * 1000} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
           <p>
-            But my services go beyond just custom development - I'm also proficient in using CMS systems like WordPress and Shopify, making it easy for my clients to take control of their own websites and keep them up to date.</p>
+            Apart from custom development, I bring with me experience in the integration and workflow automation of various CRMs like Monday.com and Make.com to drive operational efficiency. My toolkit includes Docker, Apache Kafka, and Git CI/CD pipelines to guarantee reliable and efficient deployments.</p>
         </ScrollAnimation>
         <ScrollAnimation animateIn="fadeInLeft" delay={0.3 * 1000}>
           <p>
-            So if you're in need of a new website or just looking to revamp your current online presence, I'd love to chat and see how I can help. Let's bring your website dreams to reality together!</p>
+            I look forward to bringing my knowledge and skills into a new opportunity that will go toward contributing to innovative projects, creating meaningful impact.</p>
         </ScrollAnimation>
         <ScrollAnimation animateIn="fadeInLeft" delay={0.4 * 1000}>
           <h3>Here are my main skills:</h3>
         </ScrollAnimation>
         <div className="hard-skills">
           <div className="hability">
-            <ScrollAnimation animateIn="fadeInUp" delay={0.10 * 1000}>
-              <img src={wordpress} alt="Wordpress" />
-            </ScrollAnimation>
-          </div>
-          <div className="hability">
-            <ScrollAnimation animateIn="fadeInUp" delay={0.12 * 1000}>
-              <img src={shopify} alt="shopify" />
-            </ScrollAnimation>
-          </div>
-          <div className="hability">
-            <ScrollAnimation animateIn="fadeInUp" delay={0.13 * 1000}>
-              <img src={reactIcon} alt="React" />
+            <ScrollAnimation animateIn="fadeInUp" delay={0.19 * 1000}>
+              <img src={jsIcon} alt="JavaScript" />
             </ScrollAnimation>
           </div>
           <div className="hability">
             <ScrollAnimation animateIn="fadeInUp" delay={0.14 * 1000}>
               <img src={typescriptIcon} alt="Typescript" />
+            </ScrollAnimation>
+          </div>
+          <div className="hability">
+            <ScrollAnimation animateIn="fadeInUp" delay={0.13 * 1000}>
+              <img src={reactIcon} alt="React" />
             </ScrollAnimation>
           </div>
           <div className="hability">
@@ -81,16 +76,21 @@ export function About() {
               <img src={boostrapIcon} alt="bootstrap" />
             </ScrollAnimation>
           </div>
-          <div className="hability">
-            <ScrollAnimation animateIn="fadeInUp" delay={0.19 * 1000}>
-              <img src={jsIcon} alt="JavaScript" />
-            </ScrollAnimation>
-          </div>
+          {/*<div className="hability">*/}
+          {/*  <ScrollAnimation animateIn="fadeInUp" delay={0.10 * 1000}>*/}
+          {/*    <img src={wordpress} alt="Wordpress" />*/}
+          {/*  </ScrollAnimation>*/}
+          {/*</div>*/}
+          {/*<div className="hability">*/}
+          {/*  <ScrollAnimation animateIn="fadeInUp" delay={0.12 * 1000}>*/}
+          {/*    <img src={shopify} alt="shopify" />*/}
+          {/*  </ScrollAnimation>*/}
+          {/*</div>*/}
         </div>
       </div>
       <div className="about-image">
         <ScrollAnimation animateIn="fadeInRight" delay={0.20 * 1000}>
-          <img src={VinayakSingh} alt="Vinayak Singh" />
+          <img src={HassanAli} alt="Hassan Ali" />
         </ScrollAnimation>
       </div>
     </Container>
