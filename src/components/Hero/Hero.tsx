@@ -6,8 +6,9 @@ import { NavHashLink } from "react-router-hash-link"
 import linkedin from '../../assets/linkedin.svg'
 import githubIcon from '../../assets/github.svg'
 import whatsapp from '../../assets/whatsapp.svg'
+import instagramIcon from '../../assets/instagram.svg'
 import Hello from '../../assets/Hello.gif'
-import telegram from '../../assets/telegram.svg'
+
 export function Hero() {
   return (
     <Container id="home">
@@ -19,7 +20,7 @@ export function Hero() {
           <h1>Hassan Ali</h1>
         </ScrollAnimation>
         <ScrollAnimation animateIn="fadeInUp" delay={0.4 * 1000}>
-          <h3>Full Stack Engineer</h3>
+          <h3 style={{ fontSize: "4rem"}}>Full Stack Engineer</h3>
         </ScrollAnimation>
         <ScrollAnimation animateIn="fadeInUp" delay={0.6 * 1000}>
           <p className="small-resume">+3 Years of Experience</p>
@@ -52,11 +53,11 @@ export function Hero() {
           <img src={whatsapp} alt="Whatsapp" />
         </a>
         <a
-          href="https://t.me/PakDragoon"
+          href="https://instagram/pakdragoon"
           target="_blank"
           rel="noreferrer"
         >
-          <img src={telegram} alt="telegram" />
+          <img src={instagramIcon} alt="instagram" />
         </a></div>
         </ScrollAnimation>
       </div>
