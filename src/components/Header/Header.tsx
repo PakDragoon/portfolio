@@ -2,7 +2,7 @@ import { Container } from './styles'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { NavHashLink, HashLink } from 'react-router-hash-link'
 import { useState } from 'react'
-import Resume from '../../assets/Hassan Ali - Full Stack Engineer.pdf'
+import Resume from '../../assets/Hassan Ali - Software Engineer.pdf'
 import HassanAli from "../../assets/HassanAliProfilePicture.jpg";
 import Logo from "../../assets/logo/logo_t.png"
 import ScrollAnimation from "react-animate-on-scroll";
