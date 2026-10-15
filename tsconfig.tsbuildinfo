@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/BoardCanvas.tsx","./src/components/Career.tsx","./src/components/Contact.tsx","./src/components/Hero.tsx","./src/components/Toolkit.tsx","./src/components/Work.tsx","./src/data/content.ts","./src/three/ChessScene.ts","./vite.config.ts"],"version":"5.6.3"}
