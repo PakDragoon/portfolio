@@ -1,28 +1,23 @@
 # Hassan Ali, portfolio
 
-Personal portfolio with a chess thread running through it: a 3D knight touring a floating board in the hero (click a dotted square to move it), an engine evaluation bar as the scroll indicator, an annotated case study, and a mate-in-one puzzle.
+Personal site for Hassan Ali, Senior Software Engineer. Theme: **Inference**. The whole site behaves like a model running.
 
-Built with Vite, React 18, TypeScript and three.js.
+- **Hero:** a live neural network (three.js) that reacts to the cursor; click it to run a forward pass. The headline is generated token by token (hover a word to see its probability).
+- **System prompt:** visitors choose *Hiring manager* or *Client*. Copy, calls to action, services wording and the contact template change to match. Link straight to client mode with `?for=client`.
+- **Temperature:** 0.2 shows the concise version of everything, 0.8 the detailed one.
+- **Training meter:** scroll progress as a falling loss curve; each section is a checkpoint you can jump to.
+- **Sections:** model card (about), evaluation results (impact), training history (experience), selected work with an embedding map and case-study drawer (`#case-relay` links), attention matrix (skills x projects), services and delivery pipeline, "Ask about me" (local retrieval, streamed answers with sources), and a prompt-builder contact form.
 
-## Run locally
+Stack: Vite, React 18, TypeScript, three.js, Lenis. Node 24.
+
+## Run
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
-npm run build      # outputs to build/
+npm run dev      # http://localhost:5173
+npm run build    # outputs to build/
 ```
 
-## Where to edit content
+## Edit content
 
-| What | File |
-| --- | --- |
-| Name, email, phone, links | `src/data/content.ts` (`PROFILE`) |
-| Hero headline and intro | `src/components/Hero.tsx` |
-| Story chapters | `src/data/content.ts` (`CHAPTERS`, `OFF_THE_BOARD`) |
-| Relay case study and projects | `src/data/content.ts` (`FEATURED`, `PROJECTS`) |
-| Working principles and skills | `src/data/content.ts` (`PRINCIPLES`, `REPERTOIRE`) |
-| Puzzle position | `src/components/Puzzle.tsx` |
-| Résumé PDF | `public/Hassan-Ali-Resume.pdf` |
-| 3D knight and board | `src/three/KnightScene.ts` |
-
-The 3D scene loads after the text and only renders while the hero is on screen. The page works without WebGL, and reduced-motion users get no auto-rotation. Piece sounds are off by default.
+Everything visible lives in `src/data/content.ts`: profile, headline, model card, evals, jobs, projects (with concise and detailed text), attention weights, services, pipeline and the Ask answers. Project screenshots are in `src/assets/work/`. The résumé is `public/Hassan-Ali-Resume.pdf`.

@@ -1,72 +1,96 @@
-import { useEffect, useRef, useState } from "react";
-import type { KnightScene } from "../three/KnightScene";
-import { PROFILE } from "../data/content";
-import { tock } from "../lib/sound";
+import { Fragment, useEffect, useRef, useState } from "react";
+import type { NeuralNet } from "../three/NeuralNet";
+import { HEADLINE, HERO_CTA, HERO_LEDE, PROFILE, SYSTEM_PROMPT } from "../data/content";
+import { usePrefs } from "../lib/prefs";
+import { reducedMotion } from "../lib/hooks";
 
-function KnightStage() {
+export default function Hero({ netRef }: { netRef: React.MutableRefObject<NeuralNet | null> }) {
+  const { audience, setAudience } = usePrefs();
   const canvas = useRef<HTMLCanvasElement>(null);
-  const [state, setState] = useState<"loading" | "ready" | "failed">("loading");
+  const [n, setN] = useState(reducedMotion() ? HEADLINE.length : 0);
 
+  // three.js loads after the text
   useEffect(() => {
-    let scene: KnightScene | null = null;
+    let net: NeuralNet | null = null;
     let io: IntersectionObserver | null = null;
     let ro: ResizeObserver | null = null;
-    let disposed = false;
-    import("../three/KnightScene")
-      .then(({ KnightScene }) => {
-        if (disposed || !canvas.current) return;
+    let gone = false;
+    import("../three/NeuralNet")
+      .then(({ NeuralNet }) => {
+        if (gone || !canvas.current) return;
         try {
-          scene = new KnightScene(canvas.current);
+          net = new NeuralNet(canvas.current);
         } catch {
-          setState("failed");
           return;
         }
-        scene.onMove = () => tock(0.8);
-        ro = new ResizeObserver(() => scene?.resize());
+        netRef.current = net;
+        ro = new ResizeObserver(() => net?.resize());
         ro.observe(canvas.current);
-        // only render while the hero is on screen
-        io = new IntersectionObserver(([e]) => scene?.setRunning(e.isIntersecting));
+        io = new IntersectionObserver(([e]) => net?.setRunning(e.isIntersecting));
         io.observe(canvas.current);
-        setState("ready");
+        canvas.current.classList.add("is-ready");
       })
-      .catch(() => setState("failed"));
+      .catch(() => {});
     return () => {
-      disposed = true;
+      gone = true;
       io?.disconnect();
       ro?.disconnect();
-      scene?.dispose();
+      net?.dispose();
+      netRef.current = null;
     };
-  }, []);
+  }, [netRef]);
 
-  if (state === "failed") return null;
-  return (
-    <figure className={`stage stage--${state}`}>
-      <canvas ref={canvas} aria-label="A 3D knight touring a chessboard. Click a highlighted square to move it." />
-      <figcaption>Drag to look around. Click a dotted square to move the knight.</figcaption>
-    </figure>
-  );
-}
+  // generate the headline token by token
+  useEffect(() => {
+    if (n >= HEADLINE.length) return;
+    const id = setTimeout(() => setN(n + 1), n === 0 ? 450 : 110 + Math.random() * 130);
+    return () => clearTimeout(id);
+  }, [n]);
 
-export default function Hero() {
+  const cta = HERO_CTA[audience];
+  const switchTo = (a: typeof audience) => {
+    if (a === audience) return;
+    setAudience(a);
+    netRef.current?.pulse();
+  };
+
   return (
-    <section id="top" className="hero">
-      <div className="hero__copy">
-        <p className="hero__hello">Hi, I'm Hassan.</p>
-        <h1 className="hero__title">
-          I do my best work in the <em>middlegame</em>.
+    <header id="top" className="hero">
+      <canvas ref={canvas} className="hero__net" aria-hidden="true" />
+      <div className="hero__inner">
+        <p className="hero__kicker"><i aria-hidden="true" />{PROFILE.title}, {PROFILE.location.split(",")[0]}</p>
+        <h1 className="hero__h1" aria-label={HEADLINE.map(([w]) => w).join("")}>
+          {HEADLINE.slice(0, n).map(([w, p], i) => (
+            <Fragment key={i}>
+              {w.startsWith(" ") && " "}
+              <span className={`gen ${w.trim() === "thinks" ? "gen--hot" : ""}`} data-p={`p = ${p.toFixed(2)}`} aria-hidden="true">
+                {w.trim()}
+              </span>
+            </Fragment>
+          ))}
+          <span className="caret" aria-hidden="true" />
         </h1>
-        <p className="hero__lede">
-          The demo is the opening. The middle is where real users, real data and real deadlines show up,
-          and that's the part of building software I enjoy most. For five years I've built web products end
-          to end, and today I lead a team of five shipping a SaaS for car dealerships from Lahore.
-        </p>
-        <div className="hero__actions">
-          <a className="btn" href="#games">See the work</a>
-          <a className="btn btn--quiet" href="#contact">Get in touch</a>
-          <a className="link" href={PROFILE.resume} target="_blank" rel="noopener">Résumé (PDF)</a>
+
+        <div className="sys">
+          <div className="sys__head">
+            <span>system prompt</span>
+            <div className="sys__switch" role="radiogroup" aria-label="I am visiting as">
+              <button role="radio" aria-checked={audience === "hiring"} onClick={() => switchTo("hiring")}>Hiring manager</button>
+              <button role="radio" aria-checked={audience === "client"} onClick={() => switchTo("client")}>Client</button>
+            </div>
+          </div>
+          <p className="sys__prompt" key={audience}>{SYSTEM_PROMPT[audience]}</p>
         </div>
+
+        <p className="hero__lede" key={`l-${audience}`}>{HERO_LEDE[audience]}</p>
+        <div className="hero__cta">
+          <a className="btn" href={cta.primary[1]}>{cta.primary[0]}</a>
+          <a className="btn btn--ghost" href={cta.secondary[1]} {...(cta.secondary[1].endsWith(".pdf") ? { target: "_blank", rel: "noopener" } : {})}>
+            {cta.secondary[0]}
+          </a>
+        </div>
+        <p className="hero__hint">Move your cursor over the network, or click it to run a forward pass.</p>
       </div>
-      <KnightStage />
-    </section>
+    </header>
   );
 }
