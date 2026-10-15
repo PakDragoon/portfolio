@@ -8,92 +8,103 @@ import taheiya from "../assets/work/taheiya.webp";
 
 export const PROFILE = {
   name: "Hassan Ali",
-  role: "Software engineer",
-  location: "Lahore, Pakistan",
   email: "hassan748_7@hotmail.com",
   phoneDisplay: "+92 309 1487113",
-  phoneTel: "+923091487113",
   whatsapp: "https://wa.me/923091487113",
   linkedin: "https://www.linkedin.com/in/pakdragoon",
   github: "https://github.com/PakDragoon",
   resume: "/Hassan-Ali-Resume.pdf",
 };
 
-/**
- * Career told as the opening of a chess game (Italian Game, quiet line).
- * Each step plays one white move and black's reply on the 3D board.
- */
-export type Step = {
-  notation: string; // move pair shown in the margin, e.g. "1. e4 e5"
-  when: string;
-  title: string;
-  place?: string;
-  points: string[];
+/* ------------------------------------------------------------------
+ * The story. First person, in my own voice. Edit freely.
+ * ------------------------------------------------------------------ */
+
+export type Chapter = {
+  phase: string; // chess phase the chapter maps to
+  move: string; // a move from the Italian Game, as a quiet nod
+  years: string;
+  where: string;
+  body: string[];
 };
 
-export const STEPS: Step[] = [
+export const CHAPTERS: Chapter[] = [
   {
-    notation: "1. e4 e5",
-    when: "Oct 2021",
-    title: "JavaScript developer",
-    place: "Reown Logics, Lahore",
-    points: [
-      "Opened with the front end: landing pages for 5+ brands, with interactive animation, SEO and fast load times.",
+    phase: "The opening",
+    move: "1. e4",
+    years: "2021 to 2023",
+    where: "Reown Logics, Lahore",
+    body: [
+      "I started where most front-end people start: landing pages. Animations, SEO, shaving milliseconds off load times. It taught me to care about the thing people actually see.",
+      "Within a year I was building whole products. One let founders record a 60-second video pitch in the browser and share it with whoever they were pitching. Another was a recruiting platform where we first put GPT to work, writing job posts and matching candidates, and hiring got about 30% faster.",
     ],
   },
   {
-    notation: "2. Nf3 Nc6",
-    when: "2022",
-    title: "First full products",
-    place: "Reown Logics",
-    points: [
-      "Built a video proposal app: record, upload and share a 60-second pitch with the MediaRecorder API, Node.js, MongoDB and S3.",
-      "Built the front end of a job-posting and lead generation platform, with GPT-assisted job posts and candidate matching that cut time to hire by 30%.",
-      "Pulled leads from several CRMs into one dashboard with webhooks and third-party APIs, cutting cost by more than half.",
+    phase: "The middlegame",
+    move: "3. Bc4",
+    years: "2023 to 2024",
+    where: "Nathan Digital, Dubai",
+    body: [
+      "Dubai meant an HR platform used by companies that all ran things differently. Instead of hard-coding each client's process, we rebuilt the product as modules that HR teams configure themselves: leave, letters, approval chains.",
+      "Client setup time dropped by half, because the people who knew the process could now shape it themselves. Along the way I wired in Microsoft single sign-on and our first GPT features for support.",
     ],
   },
   {
-    notation: "3. Bc4 Bc5",
-    when: "Jul 2023",
-    title: "Software engineer",
-    place: "Nathan Digital, Dubai",
-    points: [
-      "Helped move an HR platform's front end and back end from a monolith to modular, component-based architecture, improving scalability and modularity by 40%.",
-    ],
-  },
-  {
-    notation: "4. c3 Nf6",
-    when: "2024",
-    title: "Workflows people configure themselves",
-    place: "Nathan Digital",
-    points: [
-      "Built configurable React modules for leaves, letter generation and approval flows, so non-technical users set up workflows themselves. Client configuration time dropped by 50%.",
-      "Shipped 5+ private TypeScript packages, JWT auth with Microsoft SSO, and GPT features for automated support and content generation.",
-    ],
-  },
-  {
-    notation: "5. d3 d6",
-    when: "Jan 2025",
-    title: "Leading the team",
-    place: "CodingCops",
-    points: [
-      "Lead five engineers across backend, web and mobile, taking a product from first commit to production with phased plans and verification checkpoints.",
-      "Reviewed and merged 320+ pull requests; the team has shipped about 2,200 across three codebases.",
-      "Set the standards: hexagonal NestJS architecture, lint, test and build checks on every PR, and Renovate automation (70+ upgrade PRs).",
-    ],
-  },
-  {
-    notation: "6. O-O O-O",
-    when: "2025 to now",
-    title: "Castled: infrastructure and AI",
-    place: "CodingCops",
-    points: [
-      "Own the AWS stack: ECS Fargate, RDS PostgreSQL, Redis, S3 and CloudFront, SES and CloudWatch. Led the moves from EC2 to ECS and from Vercel to CloudFront.",
-      "Designed the scheduling engine. A one-year schedule for 250 employees previews in about 18 seconds, inside a rolled-back transaction.",
-      "Introduced a shared Claude Code workflow: custom agents for PR review against acceptance criteria, API-contract checks, Prisma migration safety and tests.",
+    phase: "Where I am now",
+    move: "6. O-O",
+    years: "2025 to now",
+    where: "CodingCops, Lahore",
+    body: [
+      "Today I lead five engineers across backend, web and mobile. We took a SaaS for car dealerships from its first commit to production, and I've reviewed and merged more than 320 of the roughly 2,200 pull requests the team has shipped.",
+      "I own the AWS setup, designed the scheduling engine, and brought AI into how the team works. Our Claude Code agents review pull requests against their tickets and check database migrations before they run.",
     ],
   },
 ];
+
+export const OFF_THE_BOARD =
+  "Away from the keyboard I'm usually playing chess. It's the same habit as engineering: look a few moves ahead, and don't fall in love with your first idea.";
+
+/* ------------------------------------------------------------------
+ * Work
+ * ------------------------------------------------------------------ */
+
+export type Annotation = { glyph: "!!" | "!" | "!?"; title: string; text: string };
+
+export const FEATURED = {
+  name: "Relay",
+  pgn: [
+    ["Event", "Relay"],
+    ["Site", "CodingCops, Lahore"],
+    ["Date", "2025.01.??"],
+    ["White", "Hassan Ali, team lead"],
+    ["Result", "*"],
+  ] as [string, string][],
+  summary:
+    "A multi-tenant SaaS for car dealerships that runs the deal pipeline and staff scheduling in one place, and stays in sync with the dealer systems they already use (Reynolds, Fortellis and RouteOne).",
+  annotations: [
+    {
+      glyph: "!!",
+      title: "Preview before you commit",
+      text: "Managers can run the auto-scheduler and see a full year of shifts before anything is saved. The real scheduler runs inside a transaction that gets rolled back, progress streams live, and the save is refused if anything changed in the meantime. 250 people, one year, about 18 seconds.",
+    },
+    {
+      glyph: "!",
+      title: "Respect the human move",
+      text: "Re-running the scheduler never overwrites what a manager placed by hand, or a swap or leave request that's already approved.",
+    },
+    {
+      glyph: "!",
+      title: "Castle early",
+      text: "Every query is scoped to the dealership from the signed token, across 23 roles, with MFA and rate limits. Security isn't a layer on top; it's in every query.",
+    },
+    {
+      glyph: "!?",
+      title: "Let the agents review first",
+      text: "Alongside human review, Claude Code agents check each pull request against the ticket's acceptance criteria, trace API contracts across both repos and flag risky Prisma migrations.",
+    },
+  ] as Annotation[],
+  stack: ["NestJS", "Prisma", "PostgreSQL", "React 19", "BullMQ", "Redis", "AWS ECS", "Pusher", "Claude Code"],
+};
 
 export type Project = {
   name: string;
@@ -104,78 +115,81 @@ export type Project = {
   img?: string;
 };
 
-export const FEATURED: Project = {
-  name: "Relay",
-  kind: "Multi-tenant SaaS for car dealerships",
-  text:
-    "Deal management and staff scheduling in one product, synced with Reynolds, Fortellis and RouteOne. I lead the team and own the architecture: a NestJS API with 23 roles and dealership scoping on every query, BullMQ workers on Redis, a React 19 scheduling calendar with drag-and-drop and live preview progress over Pusher, all on AWS ECS.",
-  tags: ["NestJS", "Prisma", "PostgreSQL", "React 19", "BullMQ", "Redis", "AWS ECS", "Pusher", "Claude Code"],
-};
-
 export const PROJECTS: Project[] = [
   {
     name: "Nathan HR",
-    kind: "HR management system",
-    text: "Configurable HR workflows for leaves, letters and approvals, with Microsoft SSO and GPT-powered features.",
-    tags: ["React", "TypeScript", "Node.js", "SSO"],
+    kind: "HR platform, Dubai",
+    text: "Leave, letters and approval chains that each company configures for itself, with Microsoft sign-in.",
+    tags: ["React", "TypeScript", "Node.js"],
     url: "https://nathanhr.com",
   },
   {
     name: "Pro Assist",
     kind: "AI customer care",
-    text: "A customer care app built around AI, with location-based access control so each team sees only its own region.",
+    text: "A customer care app built around AI, where each region only ever sees its own customers.",
     tags: ["AI", "React", "Access control"],
     img: proAssist,
   },
   {
     name: "Async Now",
-    kind: "Video messaging",
-    text: "Record, upload and share 60-second video proposals with leads and investors.",
-    tags: ["React", "Node.js", "MongoDB", "S3"],
+    kind: "Video pitches",
+    text: "Founders record a 60-second pitch in the browser and share it with a link.",
+    tags: ["React", "MediaRecorder", "Node.js", "S3"],
     url: "https://asyncnow.com",
     img: asyncNow,
   },
   {
     name: "QualStream",
-    kind: "Recruitment platform",
-    text: "Lead generation, job posting and talent sourcing, with GPT-assisted job posts and candidate matching.",
-    tags: ["React", "OpenAI API"],
+    kind: "Recruiting",
+    text: "Job posts, lead generation and candidate matching, with GPT doing the first draft.",
+    tags: ["React", "OpenAI"],
     img: qualStream,
   },
   {
     name: "Taheiya",
-    kind: "Vehicle marketplace",
-    text: "A Saudi platform to get offers on vehicles, search by make and model, and bid.",
+    kind: "Vehicle marketplace, Saudi Arabia",
+    text: "Get offers on your car, search by make and model, and bid.",
     tags: ["React", "Laravel", "MySQL"],
     url: "https://taheiya.sa",
     img: taheiya,
   },
   {
-    name: "EZ English Learning",
-    kind: "Education marketplace",
-    text: "Students choose a teacher, book classes and learn one-on-one over Zoom or Google Meet.",
+    name: "EZ English",
+    kind: "Online classes",
+    text: "Students pick a teacher, book a slot and learn one-on-one over Zoom or Meet.",
     tags: ["React", "Marketplace"],
     img: ezEnglish,
   },
   {
     name: "Misfits",
     kind: "Esports academy",
-    text: "Seasons, enrolment and coaching programmes for high school esports players.",
-    tags: ["React", "Web app"],
+    text: "Seasons, sign-ups and coaching for high school esports teams.",
+    tags: ["React"],
     img: misfits,
   },
   {
     name: "Bystro",
-    kind: "Brand marketing",
-    text: "Brand listings and product catalogues customers can browse.",
-    tags: ["React", "Web app"],
+    kind: "Brand catalogue",
+    text: "Brands list their products and shoppers browse them in one place.",
+    tags: ["React"],
     img: bystro,
   },
 ];
 
-export const SKILLS: [string, string[]][] = [
-  ["Front end", ["TypeScript", "React", "Redux", "React Query", "Tailwind", "MUI", "three.js"]],
-  ["Back end", ["Node.js", "NestJS", "REST APIs", "PostgreSQL", "Prisma", "MongoDB", "BullMQ", "WebSockets"]],
+/* ------------------------------------------------------------------
+ * How I work, told as the opening principles every chess coach teaches
+ * ------------------------------------------------------------------ */
+
+export const PRINCIPLES: [string, string][] = [
+  ["Control the centre", "Before any code, I want to understand the core of the problem: who uses this, and what breaks for them if we get it wrong."],
+  ["Develop your pieces", "A team is fast when everyone can move. Clear tickets, plans split into phases with checkpoints, and reviews that teach instead of block."],
+  ["Castle early", "Security, CI and monitoring go in at the start, not after the first incident."],
+  ["Don't move the same piece twice", "Plan the phase, then build it once. Rework is the most expensive move on the board."],
+];
+
+export const REPERTOIRE: [string, string[]][] = [
+  ["Front end", ["TypeScript", "React", "React Query", "Redux", "Tailwind", "MUI", "three.js"]],
+  ["Back end", ["Node.js", "NestJS", "PostgreSQL", "Prisma", "MongoDB", "BullMQ", "Redis", "WebSockets"]],
   ["Cloud", ["AWS ECS Fargate", "RDS", "S3 + CloudFront", "SES", "Docker", "Bitbucket Pipelines"]],
   ["AI", ["Claude Code agents", "OpenAI API", "LLM features", "RAG"]],
 ];
