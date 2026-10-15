@@ -1,16 +1,26 @@
-# Portfolio of Hassan Ali
+# Hassan Ali, portfolio
 
-<img src ="https://github.com/CodeHassan/CodeHassan/blob/5920a79f4c5977332a67caf91125241cf0fc46b5/www.hassanali.in.png" />
- 
-This project was created with CRA (Create React App)
+Personal portfolio. The hero and career sections sit over a three.js chessboard: scrolling through the career plays the opening of the Italian Game, one move per step.
 
-This is my portfolio website to introduce myself, here I put my skills, projects, and contact details.
+Built with Vite, React 18, TypeScript and three.js.
 
-## Technologies used:
-- React
-- Typescript
-- Styled Components
- 
-## To run this project:
-- yarn install
-- yarn run start
+## Run locally
+
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # outputs to build/
+```
+
+## Where to edit content
+
+| What | File |
+| --- | --- |
+| Name, email, phone, links, résumé path | `src/data/content.ts` (`PROFILE`) |
+| Career steps (one per chess move) | `src/data/content.ts` (`STEPS`) |
+| Projects | `src/data/content.ts` (`FEATURED`, `PROJECTS`) |
+| Skills | `src/data/content.ts` (`SKILLS`) |
+| Résumé PDF | `public/Hassan-Ali-Resume.pdf` |
+| The 3D board and the moves it plays | `src/three/ChessScene.ts` |
+
+The board loads after the text, and the page still works without WebGL. Reduced-motion users get instant moves and no auto-rotation.
