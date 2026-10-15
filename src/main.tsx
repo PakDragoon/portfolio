@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@fontsource-variable/bricolage-grotesque/standard.css";
-import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "@fontsource/noto-sans-symbols-2/400.css";
 import "./styles.css";
 import App from "./App";
 

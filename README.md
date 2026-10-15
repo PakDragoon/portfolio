@@ -1,6 +1,6 @@
 # Hassan Ali, portfolio
 
-Personal portfolio. The hero and career sections sit over a three.js chessboard: scrolling through the career plays the opening of the Italian Game, one move per step.
+Personal portfolio with a chess thread running through it: a 3D knight touring a floating board in the hero (click a dotted square to move it), an engine evaluation bar as the scroll indicator, an annotated case study, and a mate-in-one puzzle.
 
 Built with Vite, React 18, TypeScript and three.js.
 
@@ -16,11 +16,13 @@ npm run build      # outputs to build/
 
 | What | File |
 | --- | --- |
-| Name, email, phone, links, résumé path | `src/data/content.ts` (`PROFILE`) |
-| Career steps (one per chess move) | `src/data/content.ts` (`STEPS`) |
-| Projects | `src/data/content.ts` (`FEATURED`, `PROJECTS`) |
-| Skills | `src/data/content.ts` (`SKILLS`) |
+| Name, email, phone, links | `src/data/content.ts` (`PROFILE`) |
+| Hero headline and intro | `src/components/Hero.tsx` |
+| Story chapters | `src/data/content.ts` (`CHAPTERS`, `OFF_THE_BOARD`) |
+| Relay case study and projects | `src/data/content.ts` (`FEATURED`, `PROJECTS`) |
+| Working principles and skills | `src/data/content.ts` (`PRINCIPLES`, `REPERTOIRE`) |
+| Puzzle position | `src/components/Puzzle.tsx` |
 | Résumé PDF | `public/Hassan-Ali-Resume.pdf` |
-| The 3D board and the moves it plays | `src/three/ChessScene.ts` |
+| 3D knight and board | `src/three/KnightScene.ts` |
 
-The board loads after the text, and the page still works without WebGL. Reduced-motion users get instant moves and no auto-rotation.
+The 3D scene loads after the text and only renders while the hero is on screen. The page works without WebGL, and reduced-motion users get no auto-rotation. Piece sounds are off by default.
