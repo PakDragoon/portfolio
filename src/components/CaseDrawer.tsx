@@ -62,6 +62,24 @@ export default function CaseDrawer({ id, onClose }: { id: string | null; onClose
           <ul className="drawer__list">{p.highlights.map((h) => <li key={h}>{h}</li>)}</ul>
           <h3 className="drawer__h">Stack</h3>
           <ul className="chips">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>
+          {p.shipped && (
+            <>
+              <h3 className="drawer__h">Demo</h3>
+              <div className="drawer__video">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${new URL(p.shipped.video).searchParams.get("v")}?rel=0`}
+                  title={`${p.name} demo video`}
+                  loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                  allowFullScreen
+                />
+              </div>
+              <div className="drawer__links">
+                <a className="btn btn--hot" href={p.shipped.store} target="_blank" rel="noopener">Add to Chrome</a>
+                <a className="btn btn--ghost" href={p.shipped.source} target="_blank" rel="noopener">Source on GitHub</a>
+              </div>
+            </>
+          )}
           {p.url && (
             <a className="btn drawer__visit" href={p.url} target="_blank" rel="noopener">Visit {p.url.replace(/^https?:\/\//, "")}</a>
           )}
