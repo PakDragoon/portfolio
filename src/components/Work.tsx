@@ -10,7 +10,8 @@ const dist = (a: Project, b: Project) => Math.hypot(a.pos[0] - b.pos[0], a.pos[1
 export default function Work({ onOpen }: { onOpen: (id: string) => void }) {
   const [hover, setHover] = useState<string | null>(null);
   const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  const shipped = PROJECTS.filter((p) => p.shipped);
+  const rest = PROJECTS.filter((p) => !p.featured && !p.shipped);
 
   const neighbours = useMemo(() => {
     if (!hover) return [];
@@ -23,7 +24,7 @@ export default function Work({ onOpen }: { onOpen: (id: string) => void }) {
     <section id="work" className="sec">
       <div className="wrap">
         <Tokens text="Selected work" />
-        <p className="sec__sub">Two projects I'd walk any interviewer or client through, then everything else, mapped by similarity.</p>
+        <p className="sec__sub">Two projects I'd walk any interviewer or client through, two tools I've published, then everything else, mapped by similarity.</p>
 
         <div className="feat">
           {featured.map((p, i) => (
@@ -37,6 +38,27 @@ export default function Work({ onOpen }: { onOpen: (id: string) => void }) {
               <span className="feat__open">Read the case study</span>
             </button>
           ))}
+        </div>
+
+        <div className="ship">
+          <p className="ship__label"><i aria-hidden="true" />Published on the Chrome Web Store</p>
+          <div className="ship__grid">
+            {shipped.map((p) => (
+              <article key={p.id} className="ship__card">
+                <button className="ship__open" onClick={() => onOpen(p.id)} aria-label={`${p.name}: read the case study`}>
+                  {p.img && <img className="ship__img" src={p.img} alt="" width="1200" height="585" loading="lazy" />}
+                  <span className="ship__kind">{p.kind}</span>
+                  <span className="ship__name">{p.name}</span>
+                  <span className="ship__sum">{p.summary}</span>
+                </button>
+                <div className="ship__links">
+                  <a className="btn btn--hot btn--sm" href={p.shipped!.store} target="_blank" rel="noopener">Add to Chrome</a>
+                  <a className="btn btn--ghost btn--sm" href={p.shipped!.video} target="_blank" rel="noopener">Watch the demo</a>
+                  <a className="ship__src" href={p.shipped!.source} target="_blank" rel="noopener">Source on GitHub</a>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
 
         <div className="emb">

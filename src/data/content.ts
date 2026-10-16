@@ -5,6 +5,8 @@ import misfits from "../assets/work/misfits.webp";
 import bystro from "../assets/work/bystro.webp";
 import proAssist from "../assets/work/pro-assist.webp";
 import taheiya from "../assets/work/taheiya.webp";
+import specCheck from "../assets/work/spec-check.webp";
+import circleBack from "../assets/work/circle-back.webp";
 
 /*
  * Every word on the site lives here.
@@ -187,6 +189,8 @@ export type Project = {
   url?: string;
   img?: string;
   featured?: boolean;
+  /** Published tools: shown in the "Shipped" row with store, demo and source links. */
+  shipped?: { store: string; video: string; source: string };
 };
 
 export const PROJECTS: Project[] = [
@@ -237,6 +241,63 @@ export const PROJECTS: Project[] = [
       "Per-module context docs so agents and new engineers start from the same map.",
     ],
     stack: ["Claude Code", "Prisma", "Bitbucket Pipelines", "TypeScript"],
+  },
+  {
+    id: "spec-check",
+    name: "Spec Check",
+    kind: "Chrome extension for code review",
+    year: "2026",
+    where: "Open source",
+    cluster: "ai",
+    pos: [0.8, 0.16],
+    summary: "Shows a pull request's Jira or Trello acceptance criteria beside the diff, with an optional Claude check of each criterion.",
+    role: "Designed, built and published it.",
+    body: {
+      short: "Reviewers see the ticket's acceptance criteria in Chrome's side panel next to any GitHub or Bitbucket pull request, tick them off as they review, and can ask Claude to check the diff against each one.",
+      long: "The browser version of the review step in my team's AI workflow. Open a pull request on GitHub or Bitbucket and Spec Check finds the linked Jira or Trello ticket from the branch name, title or description, then lists its acceptance criteria as a checklist in Chrome's side panel. Progress is saved per pull request and can be copied into the review as Markdown. With the reviewer's own Anthropic key, Claude reads the diff and marks each criterion as met, partial or missing, with file and line evidence. There is no backend: every request goes from the browser straight to the service it belongs to, and nothing is sent to Claude without explicit consent.",
+    },
+    highlights: [
+      "Finds tickets from branch names, titles and descriptions, and reads criteria from Jira custom fields, task lists, rich-text descriptions or Trello checklists.",
+      "Works on private repositories through the reviewer's existing GitHub or Bitbucket session, with no code-host tokens to manage.",
+      "The Claude check returns a verdict, a note and file:line evidence for every criterion, as validated structured output.",
+      "Minimal permissions and no server: keys stay on the device, and the diff is only sent after a consent prompt.",
+      "Tested end to end in Chromium against simulated GitHub, Jira, Trello and Anthropic responses.",
+    ],
+    stack: ["TypeScript", "Chrome MV3", "Side Panel API", "Jira REST", "Trello API", "Claude API", "Vitest"],
+    img: specCheck,
+    shipped: {
+      store: "https://chromewebstore.google.com/detail/opmnlpkcmmdooihjefcpnfkgffgmoene",
+      video: "https://www.youtube.com/watch?v=_Sw2GinqBaQ",
+      source: "https://github.com/PakDragoon/spec-check",
+    },
+  },
+  {
+    id: "circle-back",
+    name: "Circle Back",
+    kind: "Chrome extension for video calls",
+    year: "2026",
+    where: "Open source",
+    cluster: "teams",
+    pos: [0.14, 0.86],
+    summary: "Meeting bingo for Google Meet, Teams and Zoom that marks itself from live captions, entirely on the user's device.",
+    role: "Designed, built and published it.",
+    body: {
+      short: "A lighter side project: a bingo card on video calls that marks phrases as they appear in the live captions. Captions are matched locally, with no audio access and no servers.",
+      long: "A lighter side project with a serious constraint: it had to be fun without being invasive. Circle Back shows a bingo card during Google Meet, Microsoft Teams and Zoom web calls and marks squares when their phrases appear in the meeting's own live captions. It never touches the microphone, makes no network requests and stores no caption text, only counts of which phrases were heard. Teams can play from a shared code without any server, because the code seeds each player's card.",
+    },
+    highlights: [
+      "One small caption adapter per meeting app, keyed on accessibility attributes rather than styling classes, so platform changes are one-line fixes.",
+      "Phrase matching normalises punctuation and apostrophes and matches whole words, so \"you're on mute\" and \"you are muted\" both count.",
+      "Serverless team play: a seeded shuffle gives teammates different cards from the same phrase pack.",
+      "A Shadow DOM overlay that can't clash with the host page, and a shareable card image drawn on canvas.",
+    ],
+    stack: ["TypeScript", "Chrome MV3", "Shadow DOM", "Canvas", "Vitest", "Playwright"],
+    img: circleBack,
+    shipped: {
+      store: "https://chromewebstore.google.com/detail/einjddabkmeifhncghkdmjekhcohplkf",
+      video: "https://www.youtube.com/watch?v=30JAGizVGGU",
+      source: "https://github.com/PakDragoon/circle-back",
+    },
   },
   {
     id: "nathan",
@@ -439,6 +500,7 @@ export const QAS: QA[] = [
   { q: "Can you build AI features for my product?", keys: "ai llm gpt rag agent model openai claude feature", a: "Yes. I've shipped GPT features in production (job posts and candidate matching that cut time to hire by 30%, and support automation at Nathan HR) and built a Claude Code agent workflow my team uses daily. I focus on features that can be measured and have a human in the loop where mistakes are costly.", src: ["QualStream", "AI review workflow", "Services"] },
   { q: "What's your strongest stack?", keys: "stack tech technologies skills best strongest language framework", a: "TypeScript end to end: NestJS with Prisma and PostgreSQL on the backend, React on the front end, Redis and BullMQ for background work, all on AWS ECS. I'm also comfortable with Node.js and MongoDB.", src: ["Model card", "Attention map"] },
   { q: "How do you handle infrastructure?", keys: "aws devops infrastructure cloud deploy ci cd ecs migration", a: "I own the AWS setup for Relay: ECS Fargate for the API and workers, RDS PostgreSQL, Redis, S3 and CloudFront, SES and CloudWatch. I led the moves from EC2 to ECS and from Vercel to CloudFront. Deploys build an image, register a new task definition and run migrations as a one-off task.", src: ["Experience", "Relay"] },
+  { q: "Have you shipped anything public?", keys: "public open source side project chrome extension published store github shipped", a: "Yes, two Chrome extensions, both on the Chrome Web Store and open source. Spec Check shows a pull request's Jira or Trello acceptance criteria beside the diff, with an optional Claude check of each one. Circle Back is a lighter one: meeting bingo that marks itself from live captions, entirely on the user's device.", src: ["Spec Check", "Circle Back"] },
   { q: "Are you available for freelance work?", keys: "freelance contract available hire project client work with", a: "I take on selected freelance projects alongside my role, especially SaaS builds, AI features and AWS work. The best way to start is a short email about the problem and your timeline.", src: ["Services", "Contact"] },
   { q: "What time zone are you in?", keys: "time zone timezone hours where location based remote", a: "Lahore, Pakistan (UTC+5), which overlaps well with UK and EU working hours. For other time zones we agree on a fixed overlap window.", src: ["Model card"] },
 ];
