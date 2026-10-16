@@ -40,9 +40,23 @@ export default function App() {
 
   const [tokens, setTokens] = useState(0);
   useEffect(() => {
-    // rough size of the page's own text, counted once after load (about 1.3 tokens per word)
-    const id = setTimeout(() => setTokens(Math.round(document.body.innerText.split(/\s+/).length * 1.3)), 2500);
-    return () => clearTimeout(id);
+    // Rough size of the page's own text (about 1.3 tokens per word), leaving out an open case study.
+    // Counted after load, and again whenever the temperature or audience switch changes the text.
+    const count = () => {
+      const words = (el: Element | null) => ((el as HTMLElement | null)?.innerText.match(/\S+/g) || []).length;
+      setTokens(Math.round((words(document.body) - words(document.querySelector(".drawer__panel"))) * 1.3));
+    };
+    let id = window.setTimeout(count, 2500);
+    const recount = () => {
+      clearTimeout(id);
+      id = window.setTimeout(count, 150); // let React render the new text first
+    };
+    const watch = new MutationObserver(recount);
+    watch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-depth", "data-audience"] });
+    return () => {
+      clearTimeout(id);
+      watch.disconnect();
+    };
   }, []);
 
   return (
